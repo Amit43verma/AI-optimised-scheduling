@@ -3,7 +3,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from src import optimizer
+import optimizer
 
 def load_data_from_uploads(uploaded_appointments, uploaded_patients, uploaded_slots):
     """Load data from the user's file uploads. Returns dataframes if all are provided."""
