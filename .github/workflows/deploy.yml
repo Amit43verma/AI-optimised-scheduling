@@ -1,0 +1,31 @@
+name: Deploy to Render
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Build Docker image
+        run: docker build -t smart-scheduler .
+
+      # Optional: Push your Docker image to a container registry (e.g., Docker Hub)
+      # and then let Render pull the latest image. For example:
+      #- name: Login to DockerHub
+      #  run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+      #- name: Push Docker image
+      #  run: |
+      #    docker tag smart-scheduler yourusername/smart-scheduler:latest
+      #    docker push yourusername/smart-scheduler:latest
+
+      # If using Render's GitHub integration with Dockerfile, a push to main triggers an automatic rebuild.
